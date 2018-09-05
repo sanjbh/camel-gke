@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/mvn'
-  args: ['fabric8:package']
+  args: ['package']
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['fabric8:build']
