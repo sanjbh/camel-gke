@@ -29,14 +29,24 @@
 
     <repositories>
         <repository>
-            <id>my-repo-bucket-snapshot</id>
-            <url>gs://mavenrepo_bucket/snapshot</url>
-        </repository>
-        <repository>
-            <id>my-repo-bucket-release</id>
-            <url>gs://mavenrepo_bucket/release</url>
+            <id>my-repo-bucket</id>
+            <url>gs://mavenrepo_bucket</url>
         </repository>
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>my-repo-bucket</id>
+            <url>gs://mavenrepo_bucket</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
 
 
     <dependencyManagement>
