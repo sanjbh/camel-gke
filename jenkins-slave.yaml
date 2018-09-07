@@ -1,0 +1,145 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu request for container
+      kubebuilder; cpu request for container jnlp'
+  creationTimestamp: 2018-09-07T11:27:11Z
+  labels:
+    jenkins: slave
+    jenkins/worker-8dcbeded-255e-4076-80de-1b55194f353e: "true"
+  name: jenkins-slave-frg3t-4rdkc
+  namespace: default
+  resourceVersion: "339100"
+  selfLink: /api/v1/namespaces/default/pods/jenkins-slave-frg3t-4rdkc
+  uid: f69f3310-b290-11e8-9335-42010af00161
+spec:
+  containers:
+  - command:
+    - cat
+    env:
+    - name: JENKINS_SECRET
+      value: 1010e5a52b63dfa1d31156afe265b13a49482127f0e1b81368527f8fe6039f37
+    - name: JENKINS_TUNNEL
+      value: cicd-jenkins-agent:50000
+    - name: JENKINS_NAME
+      value: jenkins-slave-frg3t-4rdkc
+    - name: JENKINS_URL
+      value: http://cicd-jenkins:8080/
+    - name: HOME
+      value: /home/jenkins
+    image: asia.gcr.io/white-berm-210209/kubebuilder:v2
+    imagePullPolicy: IfNotPresent
+    name: kubebuilder
+    resources:
+      requests:
+        cpu: 100m
+    securityContext:
+      privileged: false
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: volume-0
+    - mountPath: /home/jenkins
+      name: workspace-volume
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-q84fp
+      readOnly: true
+    workingDir: /home/jenkins
+  - env:
+    - name: JENKINS_SECRET
+      value: 1010e5a52b63dfa1d31156afe265b13a49482127f0e1b81368527f8fe6039f37
+    - name: JENKINS_TUNNEL
+      value: cicd-jenkins-agent:50000
+    - name: JENKINS_NAME
+      value: jenkins-slave-frg3t-4rdkc
+    - name: JENKINS_URL
+      value: http://cicd-jenkins:8080/
+    - name: HOME
+      value: /home/jenkins
+    image: jenkins/jnlp-slave:alpine
+    imagePullPolicy: IfNotPresent
+    name: jnlp
+    resources:
+      requests:
+        cpu: 100m
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: volume-0
+    - mountPath: /home/jenkins
+      name: workspace-volume
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-q84fp
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  nodeName: gke-jenkins-cd-default-pool-0ede4d86-5qdl
+  restartPolicy: Never
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - hostPath:
+      path: /var/run/docker.sock
+      type: ""
+    name: volume-0
+  - emptyDir: {}
+    name: workspace-volume
+  - name: default-token-q84fp
+    secret:
+      defaultMode: 420
+      secretName: default-token-q84fp
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2018-09-07T11:27:11Z
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2018-09-07T11:27:13Z
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: 2018-09-07T11:27:11Z
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://8759e63984648c3f7516e2e97c41b47fde8376dc7a620e5118c04c2615c0b815
+    image: jenkins/jnlp-slave:alpine
+    imageID: docker-pullable://jenkins/jnlp-slave@sha256:41425b9c4d271296aea05ca81ba46e2a48824512d4c0da2c8cd559812d0918d6
+    lastState: {}
+    name: jnlp
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2018-09-07T11:27:13Z
+  - containerID: docker://5d1e73780bd177543fb63765df18da2bbb54185fe97fcb6daa784b8cbe6ceb40
+    image: asia.gcr.io/white-berm-210209/kubebuilder:v2
+    imageID: docker-pullable://asia.gcr.io/white-berm-210209/kubebuilder@sha256:b45eebbf31beef758971f4d1e5259b94f55b87c6a45e7ae99d316eba5593d3a7
+    lastState: {}
+    name: kubebuilder
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2018-09-07T11:27:12Z
+  hostIP: 10.140.0.3
+  phase: Running
+  podIP: 10.20.0.54
+  qosClass: Burstable
+  startTime: 2018-09-07T11:27:11Z

@@ -26,6 +26,19 @@
         <version.number>${git.commit.id.abbrev}</version.number>
     </properties>
 
+
+    <repositories>
+        <repository>
+            <id>my-repo-bucket-snapshot</id>
+            <url>gs://mavenrepo_bucket/snapshot</url>
+        </repository>
+        <repository>
+            <id>my-repo-bucket-release</id>
+            <url>gs://mavenrepo_bucket/release</url>
+        </repository>
+    </repositories>
+
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -88,6 +101,13 @@
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
         <finalName>${project.artifactId}-${git.commit.id.abbrev}</finalName>
+        <extensions>
+            <extension>
+                <groupId>com.gkatzioura.maven.cloud</groupId>
+                <artifactId>google-storage-wagon</artifactId>
+                <version>1.0</version>
+            </extension>
+        </extensions>
         <plugins>
 
             <plugin>
