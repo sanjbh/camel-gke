@@ -26,6 +26,7 @@
         <version.number>${git.commit.id.abbrev}</version.number>
     </properties>
 
+    <!--
 
     <repositories>
         <repository>
@@ -33,6 +34,18 @@
             <url>gs://mavenrepo_bucket</url>
         </repository>
     </repositories>
+    -->
+
+    <repositories>
+    <repository>
+        <id>my-repo-bucket-snapshot</id>
+        <url>gs://mavenrepo_bucket/snapshot</url>
+    </repository>
+    <repository>
+        <id>my-repo-bucket-release</id>
+        <url>gs://mavenrepo_bucket/release</url>
+    </repository>
+</repositories>
 
     <pluginRepositories>
         <pluginRepository>
