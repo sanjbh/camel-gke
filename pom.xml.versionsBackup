@@ -6,7 +6,7 @@
     <groupId>org.sanjay</groupId>
     <artifactId>camel-gke</artifactId>
     <!--<version>1.0</version>-->
-    <version>4b050f6</version>
+    <version>1.0-SNAPSHOT</version>
 
     <name>Fabric8 :: Quickstarts :: Spring-Boot :: Camel XML</name>
     <description>Spring Boot example running a Camel route defined in XML</description>
@@ -23,7 +23,7 @@
 
         <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-        <version.number>${git.commit.id.abbrev}</version.number>
+        <version.number>${git.commit.time}.${git.commit.id.abbrev}</version.number>
     </properties>
 
     <dependencyManagement>
@@ -87,7 +87,7 @@
 
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
-        <finalName>${project.artifactId}-${git.commit.id.abbrev}</finalName>
+        <finalName>${project.artifactId}-${project.version}-${git.commit.id.abbrev}</finalName>
         <plugins>
 
             <plugin>
@@ -145,6 +145,8 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
+            <!--
            <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
@@ -152,7 +154,7 @@
                 <verbose>true</verbose>
                 <images>
                     <image>
-                        <name>asia.gcr.io/white-berm-210209/camel-gke:${git.commit.id.abbrev}</name>
+                        <name>asia.gcr.io/white-berm-210209/camel-gke:${project.version}</name>
 
                         <build>
 
@@ -175,7 +177,8 @@
                 </images>
             </configuration>
         </plugin>            
-            -->
+        -->
+        <!--
         <plugin>
             <groupId>com.spotify</groupId>
             <artifactId>docker-maven-plugin</artifactId>
@@ -195,6 +198,7 @@
                 </resources>
             </configuration>
         </plugin>
+        -->
         <plugin>
             <groupId>pl.project13.maven</groupId>
             <artifactId>git-commit-id-plugin</artifactId>
