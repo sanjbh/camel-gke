@@ -12,7 +12,7 @@
         <mirror>
           <id>central</id>
           <name>central</name>
-          <url>http://nexus-service/repository/maven-central/</url>
+          <url>http://nexus-service/repository/maven-public/</url>
           <mirrorOf>*</mirrorOf>
         </mirror>
   </mirrors>
