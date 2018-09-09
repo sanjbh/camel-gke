@@ -15,10 +15,11 @@ pipeline {
       kubernetes {
          label 'declarative-pod'
          containerTemplate {
-         name 'jenkins_slave_builder'
-         image 'jenkins_slave_builder:latest'
-         ttyEnabled true
-         command 'cat'
+            name 'jenkins_slave_builder'
+            image 'jenkins_slave_builder:latest'
+            ttyEnabled true
+            command 'cat'
+         }
       }      
    }
    stages {
