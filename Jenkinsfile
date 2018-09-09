@@ -37,7 +37,7 @@ pipeline {
        stage('Build docker image') {
            steps {
               container('jenkins-slave-builder') {
-                 sh "mvn versions:set -DnewVersion=\$(git log -n1 --format=\"%h\")"
+                 sh "mvn versions:set -DnewVersion=\$(git log -n1 --format=\"%h\") -s settings.xml"
                  sh "mvn clean package docker:build -s settings.xml"
                  sh "mvn docker:push"
                  //sh "mvn --version"
