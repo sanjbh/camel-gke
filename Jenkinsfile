@@ -34,11 +34,14 @@ pipeline {
             git 'https://github.com/sanjbh/camel-gke.git'
            }
        }
-       stage('test') {
+       stage('Build docker image') {
            steps {
               container('jenkins-slave-builder') {
-                 sh "mvn --version"
-                 sh "docker version"
+                 sh "mvn versions:set -DnewVersion=\$(git log -n1 --format=\"%h\")"
+                 sh "mvn clean package docker:build"
+                 sh "mvn docker:push"
+                 //sh "mvn --version"
+                 sh "docker images"
               }
            }
        }
