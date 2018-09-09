@@ -19,8 +19,7 @@ pipeline {
          image 'jenkins_slave_builder:latest'
          ttyEnabled true
          command 'cat'
-      }
-      }
+      }      
    }
    stages {
        stage('Git checkout') {
