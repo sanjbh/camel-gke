@@ -26,7 +26,7 @@ pipeline {
    */
    
    agent {
-      label 'jenkins-slave-builder-pt'
+      label 'jenkins-slave-builder'
    }
    stages {
        stage('Git checkout') {
