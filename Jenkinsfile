@@ -1,14 +1,15 @@
 pipeline {
-   /*
+   
    agent { 
       dockerfile  { dir 'builder-image' } 
    }
-   */
+   /*
    agent {
       docker {
          image 'herman1975/kubebuilder:v3'         
       }
    }
+   */
    stages {
        stage('Git checkout') {
            steps {
