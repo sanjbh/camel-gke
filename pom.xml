@@ -27,9 +27,11 @@
         <nexus.server>nexus-service:8081</nexus.server>
     </properties>
 
+   
+    
     <repositories>
         <repository>
-            <id>maven-group</id>
+            <id>nexus</id>
             <!--<url>http://nexus:8081/nexus/content/groups/maven_group/</url>-->
             <url>http://${nexus.server}/repository/maven-public/</url>
         </repository>
@@ -38,7 +40,7 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>maven-group</id>
+            <id>nexus</id>
             <url>http://${nexus.server}/repository/maven-public/</url>
             <releases>
                 <enabled>true</enabled>
