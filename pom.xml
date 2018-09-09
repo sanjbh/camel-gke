@@ -33,7 +33,7 @@
         <repository>
             <id>nexus</id>
             <!--<url>http://nexus:8081/nexus/content/groups/maven_group/</url>-->
-            <url>http://${nexus.server}/repository/maven-public/</url>
+            <url>http://${nexus.server}/repository/maven-central/</url>
         </repository>
     </repositories>
 
@@ -41,7 +41,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>nexus</id>
-            <url>http://${nexus.server}/repository/maven-public/</url>
+            <url>http://${nexus.server}/repository/maven-central/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
