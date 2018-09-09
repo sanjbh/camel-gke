@@ -15,7 +15,7 @@ pipeline {
       kubernetes {
          label 'declarative-pod'
          containerTemplate {
-            name 'jenkins_slave_builder'
+            name 'jenkins-slave-builder'
             image 'jenkins_slave_builder:latest'
             ttyEnabled true
             command 'cat'
@@ -30,7 +30,7 @@ pipeline {
        }
        stage('test') {
            steps {
-              container('jenkins_slave_builder') {
+              container('jenkins-slave-builder') {
                  sh "mvn --version"
                  sh "docker version"
               }
