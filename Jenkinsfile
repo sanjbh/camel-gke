@@ -30,7 +30,7 @@ pipeline {
        stage('test') {
            steps {
               container('jenkins_slave_builder') {
-                 sh "mvn version"
+                 sh "mvn --version"
                  sh "docker version"
               }
            }
