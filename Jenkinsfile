@@ -17,6 +17,7 @@ pipeline {
          containerTemplate {
             name 'jenkins-slave-builder'
             image 'jenkins_slave_builder:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
             ttyEnabled true
             command 'cat'
          }
