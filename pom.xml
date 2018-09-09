@@ -24,7 +24,7 @@
         <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <version.number>${git.commit.id.abbrev}</version.number>
-        <nexus.server>nexus-service</nexus.server>
+        <nexus.server>nexus-service.nexus</nexus.server>
     </properties>
 
    
