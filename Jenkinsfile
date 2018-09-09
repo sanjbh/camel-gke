@@ -1,5 +1,7 @@
 pipeline {
-   agent { dockerfile true }
+   agent { 
+      dockerfile  { dir 'builder-image' } 
+   }
    stages {
        stage('Git checkout') {
            steps {
