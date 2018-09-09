@@ -9,7 +9,7 @@ pipeline {
          image 'herman1975/kubebuilder:v3'         
       }
    }
-   */
+   
    
    agent {
       kubernetes {
@@ -22,6 +22,11 @@ pipeline {
             command 'cat'
          }
       }      
+   }
+   */
+   
+   agent {
+      label 'jenkins-slave-builder-pt'
    }
    stages {
        stage('Git checkout') {
