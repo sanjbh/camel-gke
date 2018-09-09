@@ -6,8 +6,7 @@ pipeline {
    */
    agent {
       docker {
-         image 'herman1975/kubebuilder:v3'
-         label 'my-jenkins-slave-builder'
+         image 'herman1975/kubebuilder:v3'         
       }
    }
    stages {
