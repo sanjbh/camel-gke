@@ -250,8 +250,8 @@
             <artifactId>docker-maven-plugin</artifactId>
             <version>0.4.11</version>
             <configuration>
-                <!--<imageName>asia.gcr.io/white-berm-210209/${project.artifactId}:${project.version}</imageName>-->
-                <imageName>${project.artifactId}:${project.version}</imageName>
+                <imageName>asia.gcr.io/white-berm-210209/${project.artifactId}:${project.version}</imageName>
+                <!--<imageName>${project.artifactId}:${project.version}</imageName>-->
                 <dockerDirectory>src/main/docker</dockerDirectory>
                 <buildArgs>
                     <finalName>${project.build.finalName}.jar</finalName>
