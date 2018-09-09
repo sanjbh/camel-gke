@@ -24,8 +24,32 @@
         <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <version.number>${git.commit.id.abbrev}</version.number>
+        <nexus.server>nexus-service:8081</nexus.server>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>maven-group</id>
+            <!--<url>http://nexus:8081/nexus/content/groups/maven_group/</url>-->
+            <url>http://${nexus.server}/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-group</id>
+            <url>http://${nexus.server}/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    
     <!--
 
     <repositories>
