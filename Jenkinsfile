@@ -13,6 +13,7 @@ pipeline {
 
     stages {       
         stage('Build and push docker image to asia.gcr.io/white-berm-210209') {
+            
             steps {
                 withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'GC_KEY')])  {
                     container('jenkins-slave-builder') {
@@ -25,7 +26,7 @@ pipeline {
                         '''    
                     }
                 }
-            }
+            }            
         }
     }
 }
