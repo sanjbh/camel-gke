@@ -14,7 +14,7 @@ pipeline {
            steps {
               withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'GC_KEY')])  {
                  container('jenkins-slave-builder') {
-                    sh "gcloud auth configure-docker"
+                    sh "echo \"y\" | gcloud auth configure-docker"
                     sh "mvn versions:set -DnewVersion=\$(git log -n1 --format=\"%h\") -s settings.xml"
                     sh "mvn clean package docker:build -s settings.xml"
                     //sh "cat \$GC_KEY | docker login -u _json_key --password-stdin https://asia.gcr.io"
