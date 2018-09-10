@@ -11,14 +11,7 @@ pipeline {
         label 'jenkins-slave-builder-label'
     }
 
-    stages {
-       /*
-        stage('Git checkout') {
-            steps {
-                git 'https://github.com/sanjbh/camel-gke.git'
-            }
-        }
-        */
+    stages {       
         stage('Build and push docker image to asia.gcr.io/white-berm-210209') {
             steps {
                 withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'GC_KEY')])  {
