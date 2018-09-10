@@ -1,5 +1,10 @@
 pipeline {
    
+   environment {
+      registry = "asia.gcr.io/white-berm-210209/camel-gke"
+      commitId = env.GIT_COMMIT.substring(0,8)      
+    }
+   
    agent {
       label 'jenkins-slave-builder-label'
    }
@@ -14,15 +19,13 @@ pipeline {
            steps {
               withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'GC_KEY')])  {
                  container('jenkins-slave-builder') {
-                    sh "echo \"y\" | gcloud auth configure-docker"
-                    sh "mvn versions:set -DnewVersion=\$(git log -n1 --format=\"%h\") -s settings.xml"
-                    sh "mvn clean package docker:build -s settings.xml"
-                    //sh "cat \$GC_KEY | docker login -u _json_key --password-stdin https://asia.gcr.io"
-                    //sh "gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io"
-                    
-                    sh "mvn -X docker:push"
-                    //sh "mvn --version"
-                    sh "docker images"
+                    sh '''
+                     mvn versions:set -DnewVersion=${commitId} -s settings.xml
+                     mvn clean package docker:build -s settings.xml
+                     cat ${GC_KEY} | docker login -u _json_key --password-stdin https://asia.gcr.io
+                     docker push ${registry}:${commitId}
+                     docker images
+                    '''                    
                  }
               }
            }
