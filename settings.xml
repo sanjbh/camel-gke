@@ -2,18 +2,23 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
     <servers xmlns="http://maven.apache.org/SETTINGS/1.1.0">
-          <server>   
-              <id>nexus</id>   
-              <username>admin</username>   
-              <password>admin123</password>      
-          </server> 
+        <server>     
+            <id>nexus</id>   
+            <username>admin</username>     
+            <password>admin123</password>   
+        </server> 
+        <server>
+            <id>github.com</id>
+            <username>sanjbh</username>
+            <password>asspbhat1</password>
+        </server>
     </servers>
     <mirrors>
         <mirror>
-          <id>central</id>
-          <name>central</name>
-          <url>http://nexus-service.nexus/repository/maven-public/</url>
-          <mirrorOf>*</mirrorOf>
+            <id>central</id>
+            <name>central</name>
+            <url>http://nexus-service.nexus/repository/maven-public/</url>
+            <mirrorOf>*</mirrorOf>
         </mirror>
-  </mirrors>
+    </mirrors>
 </settings>
