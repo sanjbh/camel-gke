@@ -3,7 +3,7 @@ pipeline {
     environment {
         projectName = 'white-berm-210209'
         applicationName = 'camel-gke'
-        registry = 'asia.gcr.io/' + projectName + '/' + applicationName
+        registry = "asia.gcr.io/${projectName}/${applicationName}"
         commitId = env.GIT_COMMIT.substring(0,7)
     }
 
