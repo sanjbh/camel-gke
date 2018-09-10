@@ -22,7 +22,7 @@ pipeline {
                             mvn clean package docker:build -s settings.xml
                             cat ${GC_KEY} | docker login -u _json_key --password-stdin https://asia.gcr.io
                             docker push ${registry}:${commitId}
-                            docker images
+                            mvn scm:tag
                         '''    
                     }
                 }
