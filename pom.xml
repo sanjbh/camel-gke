@@ -51,6 +51,13 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <scm>
+        <connection>scm:git:https://github.com/sanjbh/camel-gke</connection>
+        <url>https://github.com/sanjbh/camel-gke</url>
+        <developerConnection>scm:git:https://github.com/sanjbh/camel-gke</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     
     <!--
 
@@ -302,6 +309,16 @@
             <artifactId>versions-maven-plugin</artifactId>
             <version>2.2</version>
         </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>1.10.0</version>
+            <configuration>
+              <connectionType>connection</connectionType>
+              <username>sanjbh</username>
+              <password>asspbhat1</password>
+            </configuration>
+      </plugin>
     </plugins>
 
 </build>
