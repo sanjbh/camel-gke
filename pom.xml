@@ -27,8 +27,8 @@
         <nexus.server>nexus-service.nexus</nexus.server>
     </properties>
 
-   
-    
+
+
     <repositories>
         <repository>
             <id>nexus</id>
@@ -57,42 +57,6 @@
         <developerConnection>scm:git:https://github.com/sanjbh/camel-gke</developerConnection>
         <tag>HEAD</tag>
     </scm>
-
-    
-    <!--
-
-    <repositories>
-        <repository>
-            <id>my-repo-bucket</id>
-            <url>gs://mavenrepo_bucket</url>
-        </repository>
-    </repositories>
-    
-
-    <repositories>
-    <repository>
-        <id>my-repo-bucket-snapshot</id>
-        <url>gs://mavenrepo_bucket/snapshot</url>
-    </repository>
-    <repository>
-        <id>my-repo-bucket-release</id>
-        <url>gs://mavenrepo_bucket/release</url>
-    </repository>
-</repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>my-repo-bucket</id>
-            <url>gs://mavenrepo_bucket</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
--->
 
 
     <dependencyManagement>
@@ -200,126 +164,62 @@
                 </executions>
             </plugin>
 
-            <!--
             <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>fabric8-maven-plugin</artifactId>
-                <version>${fabric8.maven.plugin.version}</version>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.11</version>
                 <configuration>
-                    <images>
-                        <image>
-                            <name>asia.gcr.io/white-berm-210209/%a:%v</name>
-                        </image>
-                    </images>
+                    <imageName>asia.gcr.io/white-berm-210209/${project.artifactId}:${project.version}</imageName>
+                    <!--<imageName>${project.artifactId}:${project.version}</imageName>-->
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <buildArgs>
+                        <finalName>${project.build.finalName}.jar</finalName>
+                    </buildArgs>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.2.4</version>
                 <executions>
                     <execution>
+                        <id>get-the-git-infos</id>
+                        <phase>initialize</phase>
                         <goals>
-                            <goal>resource</goal>
-                            <goal>build</goal>
+                            <goal>revision</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <dateFormat>yyyyMMdd-HHmmss</dateFormat>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <generateGitPropertiesFile>false</generateGitPropertiesFile>
+                    <injectallreactorprojects>true</injectallreactorprojects>
+                </configuration>
             </plugin>
-           <plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <configuration>
-                <verbose>true</verbose>
-                <images>
-                    <image>
-                        <name>asia.gcr.io/white-berm-210209/camel-gke:${git.commit.id.abbrev}</name>
-
-                        <build>
-
-                            <from>vixns/java8</from>
-
-                            <entryPoint>
-                                <exec>
-                                    <arg>java</arg>
-                                    <arg>-Djava.security.egd=file:/dev/./urandom</arg>
-                                    <arg>-jar</arg>
-                                    <arg>/target/${project.artifactId}.${project.packaging}</arg>
-                                </exec>
-                            </entryPoint>
-
-                            <assembly>
-                                <descriptorRef>artifact</descriptorRef>
-                            </assembly>
-                        </build>
-                    </image>
-                </images>
-            </configuration>
-        </plugin>            
-            -->
-        <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>0.4.11</version>
-            <configuration>
-                <imageName>asia.gcr.io/white-berm-210209/${project.artifactId}:${project.version}</imageName>
-                <!--<imageName>${project.artifactId}:${project.version}</imageName>-->
-                <dockerDirectory>src/main/docker</dockerDirectory>
-                <buildArgs>
-                    <finalName>${project.build.finalName}.jar</finalName>
-                </buildArgs>
-                <resources>
-                    <resource>
-                        <targetPath>/</targetPath>
-                        <directory>${project.build.directory}</directory>
-                        <include>${project.build.finalName}.jar</include>
-                    </resource>
-                </resources>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>pl.project13.maven</groupId>
-            <artifactId>git-commit-id-plugin</artifactId>
-            <version>2.2.4</version>
-            <executions>
-                <execution>
-                    <id>get-the-git-infos</id>
-                    <phase>initialize</phase>
-                    <goals>
-                        <goal>revision</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <dateFormat>yyyyMMdd-HHmmss</dateFormat>
-                <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-                <generateGitPropertiesFile>false</generateGitPropertiesFile>
-                <injectallreactorprojects>true</injectallreactorprojects>
-                <!--
-                <prefix>git</prefix>
-                <verbose>false</verbose>
-                <generateGitPropertiesFile>false</generateGitPropertiesFile>
-                <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
-                <format>json</format>
-                <gitDescribe>
-                    <skip>false</skip>
-                    <always>false</always>
-                    <dirty>-dirty</dirty>
-                </gitDescribe>
-                -->
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>versions-maven-plugin</artifactId>
-            <version>2.2</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
-            <version>1.10.0</version>
-            <configuration>
-              <connectionType>connection</connectionType>
-              <username>sanjbh</username>
-              <password>asspbhat1</password>
-            </configuration>
-      </plugin>
-    </plugins>
-
-</build>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>1.10.0</version>
+                <configuration>
+                    <connectionType>connection</connectionType>
+                    <tag>${project.artifactId}-${project.version}</tag>
+                    <basedir>${project.basedir}</basedir>                    
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
+
