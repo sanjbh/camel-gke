@@ -14,7 +14,7 @@ pipeline {
     }
 
     stages {       
-        stage("${stageString}") {
+        stage("Building and pushing docker image to GCR") {
             
             steps {
                 withCredentials([file(credentialsId: 'gcr-secrets-file', variable: 'GC_KEY'), 
