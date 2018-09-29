@@ -6,6 +6,7 @@ pipeline {
         applicationName = 'camel-gke'
         registry = "${region}/${projectName}/${applicationName}"
         commitId = env.GIT_COMMIT.substring(0,7)
+        stageString = "Build and push ${applicationName} docker image to ${region}/${projectName}"
     }
 
     agent {
@@ -13,7 +14,7 @@ pipeline {
     }
 
     stages {       
-        stage("Build and push ${applicationName} docker image to ${region}/${projectName}") {
+        stage(stageString) {
             
             steps {
                 withCredentials([file(credentialsId: 'gcr-secrets-file', variable: 'GC_KEY'), 
