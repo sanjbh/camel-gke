@@ -14,7 +14,7 @@ pipeline {
     }
 
     stages {       
-        stage(stageString) {
+        stage("${stageString}") {
             
             steps {
                 withCredentials([file(credentialsId: 'gcr-secrets-file', variable: 'GC_KEY'), 
@@ -23,7 +23,7 @@ pipeline {
                         sh '''
                             mvn versions:set -DnewVersion=${commitId} -s ${MVN_SETTINGS_XML}
                             mvn clean package docker:build -s ${MVN_SETTINGS_XML}
-                            cat ${GC_KEY} | docker login -u _json_key --password-stdin https://${zone}
+                            cat ${GC_KEY} | docker login -u _json_key --password-stdin https://${region}
                             docker push ${registry}:${commitId}
                             mvn scm:tag -s ${MVN_SETTINGS_XML}
                         '''    
