@@ -1,27 +1,28 @@
 pipeline {
 
     environment {
-        projectName = 'white-berm-210209'
+        region = 'asia.gcr.io'
+        projectName = 'strong-eon-217812'
         applicationName = 'camel-gke'
-        registry = "asia.gcr.io/${projectName}/${applicationName}"
+        registry = "${region}/${projectName}/${applicationName}"
         commitId = env.GIT_COMMIT.substring(0,7)
     }
 
     agent {
-        label 'jenkins-slave-builder-label'
+        label 'jenkins-k8s-slave-label'
     }
 
     stages {       
-        stage('Build and push docker image to asia.gcr.io/white-berm-210209') {
+        stage("Build and push ${applicationName} docker image to ${region}/${projectName}") {
             
             steps {
-                withCredentials([file(credentialsId: 'gcr-auth-file', variable: 'GC_KEY'), 
+                withCredentials([file(credentialsId: 'gcr-secrets-file', variable: 'GC_KEY'), 
                                  file(credentialsId: 'maven-settings-xml-secret', variable: 'MVN_SETTINGS_XML')])  {
-                    container('jenkins-slave-builder') {
+                    container('custom-jenkins-slave') {
                         sh '''
                             mvn versions:set -DnewVersion=${commitId} -s ${MVN_SETTINGS_XML}
                             mvn clean package docker:build -s ${MVN_SETTINGS_XML}
-                            cat ${GC_KEY} | docker login -u _json_key --password-stdin https://asia.gcr.io
+                            cat ${GC_KEY} | docker login -u _json_key --password-stdin https://${zone}
                             docker push ${registry}:${commitId}
                             mvn scm:tag -s ${MVN_SETTINGS_XML}
                         '''    
