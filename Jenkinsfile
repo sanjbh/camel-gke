@@ -1,7 +1,7 @@
 pipeline {
 
     environment {
-        region = regionName
+        region = "${regionName}"
         //projectName = 'strong-eon-217812'
         applicationName = 'camel-gke'
         registry = "${region}/${projectName}/${applicationName}"
