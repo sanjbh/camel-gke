@@ -1,8 +1,8 @@
 pipeline {
 
     environment {
-        region = 'asia.gcr.io'
-        projectName = 'strong-eon-217812'
+        region = regionName
+        //projectName = 'strong-eon-217812'
         applicationName = 'camel-gke'
         registry = "${region}/${projectName}/${applicationName}"
         commitId = env.GIT_COMMIT.substring(0,7)
