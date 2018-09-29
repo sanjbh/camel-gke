@@ -25,6 +25,8 @@
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <version.number>${git.commit.id.abbrev}</version.number>
         <nexus.server>nexus-service.nexus</nexus.server>
+        <gcr.region.name>${env.regionName}</gcr.region.name>     
+        <gcp.project.name>${env.projectName}</gcp.project.name>
     </properties>
 
 
@@ -169,7 +171,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.11</version>
                 <configuration>
-                    <imageName>asia.gcr.io/white-berm-210209/${project.artifactId}:${project.version}</imageName>
+                    <imageName>${gcr.region.name}/${gcp.project.name}/${project.artifactId}:${project.version}</imageName>
                     <!--<imageName>${project.artifactId}:${project.version}</imageName>-->
                     <dockerDirectory>src/main/docker</dockerDirectory>
                     <buildArgs>
